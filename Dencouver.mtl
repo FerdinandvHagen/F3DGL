@@ -1,0 +1,615 @@
+newmtl blinn1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl blinn2SG
+illum 4
+Kd 0.82 0.81 0.81
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.21 0.21 0.21
+newmtl blinn4SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Cementhighrise.jpg
+bump Cementhighrise.jpg -bm 1
+Ni 1.00
+Ks 0.18 0.18 0.18
+newmtl blinn6SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd skyscaper_allglassface.jpg
+bump skyscaper_allglassface.jpg -bm -0.1
+Ni 1.00
+Ks 0.77 0.77 0.77
+newmtl blinn7SG
+illum 4
+Kd 0.73 0.73 0.73
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.26 0.26 0.26
+newmtl blinn8SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd skyscaper_base_windows.jpg
+bump skyscaper_base_windows.jpg -bm 0.75
+Ni 1.00
+Ks 0.21 0.21 0.21
+newmtl blinn10SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd doors_storefront_metal.jpg
+Ni 1.00
+Ks 0.50 0.50 0.50
+newmtl blinn11SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd octagon_skyscaper_shinymetal.jpg
+bump octagon_skyscaper_shinymetal.jpg -bm 0.5
+Ni 1.00
+Ks 0.36 0.36 0.36
+newmtl blinn12SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Apartmenthighrise.jpg
+bump Apartmenthighrise.jpg -bm 0.666
+Ni 1.00
+Ks 0.13 0.13 0.13
+newmtl blinn13SG
+illum 4
+Kd 0.46 0.46 0.47
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.23 0.23 0.23
+newmtl blinn14SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Star_offices.jpg
+bump Star_offices.jpg -bm 1
+Ni 1.00
+Ks 0.67 0.67 0.67
+newmtl blinn15SG
+illum 4
+Kd 0.48 0.50 0.52
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.82 0.82 0.82
+newmtl blinn16SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Door_industrial.jpg
+bump -s 0.5 1 Door_industrial.jpg -bm 0.666
+Ni 1.00
+Ks 0.14 0.14 0.14
+newmtl blinn18SG
+illum 4
+Kd 0.70 0.43 0.38
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.60 0.60 0.60
+newmtl blinn19SG
+illum 4
+Kd 0.88 0.88 0.88
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.42 0.42 0.42
+newmtl blinn21SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Asphault_blank_drivewaytrhu.jpg
+Ni 1.00
+Ks 0.17 0.17 0.17
+newmtl blinn22SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Grass.jpg
+bump -s 0.125 0.1 Grass.jpg -bm 0.2
+Ni 1.00
+Ks 0.07 0.07 0.07
+newmtl blinn23SG
+illum 4
+Kd 0.88 0.88 0.88
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.35 0.35 0.35
+newmtl blinn24SG
+illum 4
+Kd 0.45 0.45 0.50
+Ka 0.00 0.00 0.00
+Tf 0.33 0.33 0.33
+Ni 1.00
+Ks 0.85 0.85 0.85
+newmtl blinn25SG
+illum 4
+Kd 0.18 0.18 0.18
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.74 0.74 0.74
+newmtl blinn27SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Apartment_brick_color.jpg
+bump Apartment_brick_bump.jpg -bm 1.333
+Ni 1.00
+Ks 0.13 0.13 0.13
+newmtl blinn30SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Roofstones.jpg
+bump Roofstones.jpg -bm 0.8
+Ni 1.00
+Ks 0.24 0.24 0.24
+newmtl blinn31SG
+illum 4
+Kd 0.75 0.32 0.35
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.21 0.21 0.21
+newmtl blinn32SG
+illum 4
+Kd 0.68 0.66 0.66
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.65 0.65 0.65
+newmtl blinn33SG
+illum 4
+Kd 0.21 0.21 0.21
+Ka 0.00 0.00 0.00
+Tf 0.60 0.60 0.60
+Ni 1.00
+Ks 0.79 0.79 0.79
+newmtl blinn34SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd orange_highrise.jpg
+bump orange_highrise.jpg -bm 1.5
+Ni 1.00
+Ks 0.32 0.32 0.32
+newmtl blinn35SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd HK_superscraper.jpg
+bump HK_superscraper.jpg -bm -0.75
+Ni 1.00
+Ks 0.61 0.61 0.61
+newmtl blinn36SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd White_windowcluster.jpg
+bump White_windowcluster.jpg -bm 0.75
+Ni 1.00
+Ks 0.53 0.53 0.53
+newmtl blinn37SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Herringbone_floortile.jpg
+bump Herringbone_floortile.jpg -bm 3
+Ni 1.00
+Ks 0.16 0.16 0.16
+newmtl blinn38SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd bluecrookedwindows.jpg
+bump bluecrookedwindows.jpg -bm 0.333
+Ni 1.00
+Ks 0.50 0.50 0.50
+newmtl blinn39SG
+illum 4
+Kd 0.98 0.98 0.98
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.21 0.21 0.21
+newmtl blinn40SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Allwindows.jpg
+bump Allwindows.jpg -bm -1
+Ni 1.00
+Ks 0.74 0.74 0.74
+newmtl blinn41SG
+illum 4
+Kd 0.34 0.29 0.24
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.07 0.07 0.07
+newmtl blinn42SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Apartment_brick2.jpg
+bump Apartment_brick2.jpg -bm 1
+Ni 1.00
+Ks 0.50 0.50 0.50
+newmtl blinn43SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Brick_3part_window.jpg
+bump Brick_3part_window.jpg -bm 1
+Ni 1.00
+Ks 0.13 0.13 0.13
+newmtl blinn46SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd building_gray_windows.jpg
+bump building_gray_windows.jpg -bm 1
+Ni 1.00
+Ks 0.10 0.10 0.10
+newmtl blinn47SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd White_brick_red_windows.jpg
+bump White_brick_red_windows.jpg -bm 1
+Ni 1.00
+Ks 0.50 0.50 0.50
+newmtl blinn48SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd red_blue_windows.jpg
+bump red_blue_windows.jpg -bm 0.25
+Ni 1.00
+Ks 0.56 0.56 0.56
+newmtl blinn49SG
+illum 4
+Kd 0.13 0.13 0.13
+Ka 0.00 0.00 0.00
+Tf 0.20 0.20 0.20
+Ni 1.00
+Ks 0.81 0.81 0.81
+newmtl blinn50SG
+illum 4
+Kd 0.76 0.76 0.76
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.22 0.22 0.22
+newmtl blinn51SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Parkingspaceoverlay.png
+Ni 1.00
+newmtl blinn52SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd bellagio.jpg
+bump bellagio.jpg -bm 1
+Ni 1.00
+Ks 0.16 0.16 0.16
+newmtl blinn53SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd contrast_white_brick.jpg
+bump contrast_white_brick.jpg -bm 1
+Ni 1.00
+Ks 0.14 0.14 0.14
+newmtl blinn54SG
+illum 4
+Kd 0.22 0.22 0.22
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.76 0.76 0.76
+newmtl blinn55SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd plain_gray_window.jpg
+bump plain_gray_window.jpg -bm -1
+Ni 1.00
+Ks 0.11 0.11 0.11
+newmtl blinn56SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd plain_gray_window_black_band.jpg
+bump plain_gray_window_black_band.jpg -bm 1
+Ni 1.00
+Ks 0.10 0.10 0.10
+newmtl blinn59SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd tall_white_bars.jpg
+bump tall_white_bars.jpg -bm 1.5
+Ni 1.00
+Ks 0.15 0.15 0.15
+newmtl blinn60SG
+illum 4
+Kd 0.69 0.27 0.29
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.36 0.36 0.36
+newmtl blinn62SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Bluewindow_greybottomed.jpg
+bump Bluewindow_greybottomed.jpg -bm 0.75
+Ni 1.00
+Ks 0.50 0.50 0.50
+newmtl blinn63SG
+illum 4
+Kd 0.78 0.78 0.80
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.75 0.75 0.75
+newmtl blinn64SG
+illum 4
+Kd 0.35 0.50 0.45
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.36 0.36 0.36
+newmtl blinn65SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Bluewindows_cooldeck.jpg
+bump -mm 0 0.1405 Bluewindows_cooldeck_alhpa.png -bm -2
+Ni 1.00
+Ks 0.64 0.64 0.64
+newmtl blinn66SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd yellowflowers.jpg
+bump yellowflowers.jpg -bm 0.7
+Ni 1.00
+Ks 0.10 0.10 0.10
+newmtl blinn67SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Blue_split_building_windows.jpg
+bump Blue_split_building_windows.jpg -bm -1
+Ni 1.00
+Ks 0.21 0.21 0.21
+newmtl blinn68SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Blue_split_building_sidewindows.jpg
+bump Blue_split_building_sidewindows.jpg -bm 1
+Ni 1.00
+Ks 0.63 0.63 0.63
+newmtl blinn70SG
+illum 4
+Kd 0.46 0.48 0.53
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.27 0.27 0.27
+newmtl blinn71SG
+illum 4
+Kd 0.31 0.52 0.28
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.13 0.13 0.13
+newmtl cooldeck_fencingRAIL_blinn1SG
+illum 4
+Kd 0.24 0.36 0.41
+Ka 0.00 0.00 0.00
+Tf 0.00 0.00 0.00
+Ni 1.00
+newmtl initialShadingGroup
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl lambert3SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Asphault_4lane.jpg
+bump -s 1 0.025 Asphault_4lane.jpg -bm 0.01
+Ni 1.00
+Ks 0.14 0.14 0.14
+newmtl lambert4SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl lambert63SG
+illum 4
+Kd 0.58 0.76 0.80
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.76 0.76 0.76
+newmtl lambert108SG
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl lambert110SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Bankonebuilding.jpg
+bump -s 0.5 0.333333 -mm 0 1.333 Bankonebuilding.jpg -bm -0.05
+Ni 1.00
+Ks 0.41 0.41 0.41
+newmtl lambert114SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd helipad_overlay.png
+Ni 1.00
+newmtl lambert118SG
+illum 4
+Kd 0.26 0.39 0.45
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl lambert119SG
+illum 4
+Kd 0.00 0.30 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl lambert120SG
+illum 4
+Kd 0.37 0.37 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl lambert121SG
+illum 4
+Kd 0.15 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl layeredShader1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 0.00
+newmtl oceanShader1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 0.00
+newmtl oops2_blinn22SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Grass.jpg
+bump -s 0.125 0.1 Grass.jpg -bm 0.2
+Ni 1.00
+Ks 0.07 0.07 0.07
+newmtl oops2_grassdarker_blinn1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Grass.jpg
+bump -s 0.125 0.1 -mm 0 0.72728 Grass.jpg -bm 0.3
+Ni 1.00
+Ks 0.07 0.07 0.07
+newmtl oops_blinn45SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd boring_gray_3windows.jpg
+bump boring_gray_3windows.jpg -bm -1
+Ni 1.00
+Ks 0.50 0.50 0.50
+newmtl street_blinn_nurb1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Asphault_4lane.jpg
+bump -s 1 0.00666667 Asphault_4lane.jpg -bm 0.01
+Ni 1.00
+Ks 0.14 0.14 0.14
+newmtl street_blinn_nurb2SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Asphault_4lane.jpg
+bump -s 1 0.00333333 Asphault_4lane.jpg -bm 0.01
+Ni 1.00
+Ks 0.14 0.14 0.14
+newmtl tafficlight_blinn1SG
+illum 4
+Kd 0.58 0.54 0.29
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.27 0.27 0.27
+newmtl white_windowcluster_blinn1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd White_windowcluster.jpg
+bump White_windowcluster.jpg -bm 0.75
+Ni 1.00
+Ks 0.53 0.53 0.53
