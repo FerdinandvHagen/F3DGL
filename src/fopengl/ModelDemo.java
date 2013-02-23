@@ -70,12 +70,13 @@ public class ModelDemo {
     private static Texture audi;
     public static final String MODEL_LOCATION = "Bugatti2";
     public static final String HOUSE_LOCATION = "Dencouver";
+    private static Model t;
 
     public static void main(String[] args) {
         //OBJLoader.loadMTL(new File("C:/Blockversuch.mtl"));
         setUpDisplay();
         Model s=OBJLoader.loadModel(MODEL_LOCATION);
-        Model t=OBJLoader.loadModel(HOUSE_LOCATION);
+        t=OBJLoader.loadModel(HOUSE_LOCATION);
         OBJLoader.getObjects(s);
         OBJLoader.getObjects(t);
         bunnyDisplayList=OBJLoader.createList(s);
@@ -129,8 +130,9 @@ public class ModelDemo {
         glLoadIdentity();
         camera.applyTranslations();
         glPolygonMode(GL_FRONT_AND_BACK , GL_LINES);
-        glCallList(bunnyDisplayList);
-        glCallList(houseDisplayList);
+        //glCallList(bunnyDisplayList);
+        //glCallList(houseDisplayList);
+        OBJLoader.processPartModel(t, camera.x(), camera.y(), 100f);
         glColor3f(0.5f,0f,0f);
         glRectf(0.0f,0.0f,1.1f,1.1f);
     }
@@ -145,7 +147,7 @@ public class ModelDemo {
         camera.applyOptimalStates();
         camera.applyPerspectiveMatrix();
     }
-
+    
     private static void setUpDisplay() {
         try {
             Display.setDisplayMode(new DisplayMode(1900, 1080));

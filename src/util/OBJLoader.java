@@ -170,6 +170,117 @@ public class OBJLoader
         return displayList;
     }
 
+    public static void processPartModel(Model m, float x, float y, float far)
+    {
+        glBegin(GL_TRIANGLES);
+        for (ModelObject mobj : m.object)
+        {
+            glDisable(GL_TEXTURE_2D);
+            //Zuerst die ganzen Daten auslesen für die Farbe
+            glMaterial(GL_FRONT, GL_AMBIENT, asFlippedFloatBuffer(new float[]
+                    {
+                        mobj.Ka.x, mobj.Ka.y, mobj.Ka.z, 1f
+                    }));
+            glMaterial(GL_FRONT, GL_DIFFUSE, asFlippedFloatBuffer(new float[]
+                    {
+                        mobj.Kd.x, mobj.Kd.y, mobj.Kd.z, 1f
+                    }));
+            if (mobj.Ks != null)
+            {
+                glMaterial(GL_FRONT, GL_SPECULAR, asFlippedFloatBuffer(new float[]
+                        {
+                            mobj.Ks.x, mobj.Ks.y, mobj.Ks.z, 1f
+                        }));
+            }
+            glColor4f(mobj.Kd.x, mobj.Kd.y, mobj.Kd.z, mobj.d);
+            glMaterialf(GL_FRONT, GL_SHININESS, mobj.Ns);
+            //und nun wird ganz normal gelesen.
+            if (mobj.texture != null)
+            {
+                glDisable(GL_TEXTURE_2D);
+                glEnable(GL_TEXTURE_2D);
+                mobj.texture.bind();
+            }
+            glBegin(GL_TRIANGLES);
+            for (Face face : mobj.faces)
+            {
+                Vector2f downleft = new Vector2f(x, y);
+                Vector2f downright = new Vector2f(x + far, y);
+                Vector2f upleft = new Vector2f(x, y + far);
+                Vector2f upright = new Vector2f(x + far, y + far);
+
+                Vector3f v1 = m.vertices.get((int) face.vertex.x - 1);
+                Vector3f v2 = m.vertices.get((int) face.vertex.y - 1);
+                Vector3f v3 = m.vertices.get((int) face.vertex.z - 1);
+
+                if (!checkHit(x, y, far, v1.x, v1.y))
+                {
+                    break;
+                }
+                if (!checkHit(x, y, far, v2.x, v2.y))
+                {
+                    break;
+                }
+                if (!checkHit(x, y, far, v3.x, v3.y))
+                {
+                    break;
+                }
+                
+                //1
+                {
+                    if (mobj.texture != null)
+                    {
+                        Vector2f t1 = m.texvertices.get((int) face.textvert.x - 1);
+                        glTexCoord2f(t1.x, 1f - t1.y);
+                    }
+                }
+                Vector3f n1 = m.normals.get((int) face.normal.x - 1);
+                glNormal3f(n1.x, n1.y, n1.z);
+                glVertex3f(v1.x, v1.y, v1.z);
+                //2
+                if (mobj.texture != null)
+                {
+                    Vector2f t2 = m.texvertices.get((int) face.textvert.y - 1);
+                    glTexCoord2f(t2.x, 1f - t2.y);
+                }
+                Vector3f n2 = m.normals.get((int) face.normal.y - 1);
+                glNormal3f(n2.x, n2.y, n2.z);
+                glVertex3f(v2.x, v2.y, v2.z);
+                //3
+                if (mobj.texture != null)
+                {
+                    Vector2f t3 = m.texvertices.get((int) face.textvert.z - 1);
+                    glTexCoord2f(t3.x, 1f - t3.y);
+                }
+                Vector3f n3 = m.normals.get((int) face.normal.z - 1);
+                glNormal3f(n3.x, n3.y, n3.z);
+                glVertex3f(v3.x, v3.y, v3.z);
+            }
+        }
+        glEnd();
+    }
+
+    private static boolean checkHit(float x, float y, float far, float vx, float vy)
+    {
+        if (vx < x)
+        {
+            return false;
+        }
+        if (vx > (x + far))
+        {
+            return false;
+        }
+        if (vy < y)
+        {
+            return false;
+        }
+        if (vy > (y + far))
+        {
+            return false;
+        }
+        return true;
+    }
+
     private static Model loadOBJ(String name, String mtllib) throws FileNotFoundException, IOException
     {
         //Wir holen uns die Anfangsuhrzeit, um Ladezeiten berechnen zu können
