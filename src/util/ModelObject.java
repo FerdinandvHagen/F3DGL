@@ -51,15 +51,23 @@ public class ModelObject
 
     public boolean inbounds(float x, float y, float zfar)
     {
-        if (((x+zfar) < (middlepointx + expx))&&((x-zfar) > (middlepointx - expx)))
+        if (((x+zfar) > (middlepointx + expx))&&((x-zfar) > (middlepointx + expx)))
         {
             return false;
         }
-        if (((y+zfar) < (middlepointy + expy))&&((y-zfar) > (middlepointy - expy)))
+        if (((x+zfar) < (middlepointx - expx))&&((x-zfar) < (middlepointx - expx)))
         {
             return false;
         }
-        System.out.println("Inbounds");
+        if (((y+zfar) > (middlepointy + expy))&&((y-zfar) > (middlepointy + expy)))
+        {
+            return false;
+        }
+        if (((y+zfar) < (middlepointy - expy))&&((y-zfar) < (middlepointy - expy)))
+        {
+            return false;
+        }
+        //System.out.println("Inbounds");
         return true;
     }
     //OBJ - part

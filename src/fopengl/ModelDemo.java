@@ -74,7 +74,7 @@ public class ModelDemo
     };
     private static Texture audi;
     public static final String MODEL_LOCATION = "Bugatti2";
-    public static final String HOUSE_LOCATION = "NEUESTES_DANCOUVER";
+    public static final String HOUSE_LOCATION = "NEUESTES_DANCOUVER2";
     private static Model t;
 
     public static void main(String[] args)
@@ -86,7 +86,7 @@ public class ModelDemo
         //OBJLoader.getObjects(s);
         //OBJLoader.getObjects(t);
         bunnyDisplayList = OBJLoader.createList(s);
-        houseDisplayList = OBJLoader.createList(t);
+        //houseDisplayList = OBJLoader.createList(t);
         setUpCamera();
         setUpLighting();
         //Transparenz aktivieren
@@ -148,8 +148,8 @@ public class ModelDemo
         camera.applyTranslations();
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
         //glCallList(bunnyDisplayList);
-        glCallList(houseDisplayList);
-        //OBJLoader.processPartModel(t, camera.x(), camera.y(), 1000f);
+        //glCallList(houseDisplayList);
+        OBJLoader.processPartModel(t, camera.x(), camera.y(), 1000f);
     }
 
     private static void setUpCamera()
