@@ -26,7 +26,6 @@
  * of the authors and should not be interpreted as representing official policies,
  * either expressed or implied, of the FreeBSD Project.
  */
-
 package fopengl;
 
 //import util.BufferTools;
@@ -59,42 +58,50 @@ import org.newdawn.slick.font.effects.ColorEffect;
  *
  * @author Oskar Veerhoek
  */
-public class ModelDemo {
+public class ModelDemo
+{
 
     private static Camera camera;
     private static int bunnyDisplayList;
     private static int houseDisplayList;
-    
-    private static float[] lightposition = {-2.19f, 1.36f, 11.45f, 1f};
-    
+    private static float[] lightposition =
+    {
+        -2.19f, 1.36f, 11.45f, 1f
+    };
+    private static float[] fogcolor =
+    {
+        0.7f, 0.7f, 0.7f, 1f
+    };
     private static Texture audi;
     public static final String MODEL_LOCATION = "Bugatti2";
-    public static final String HOUSE_LOCATION = "Dencouver";
+    public static final String HOUSE_LOCATION = "NEUESTES_DANCOUVER";
     private static Model t;
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         //OBJLoader.loadMTL(new File("C:/Blockversuch.mtl"));
         setUpDisplay();
-        Model s=OBJLoader.loadModel(MODEL_LOCATION);
-        t=OBJLoader.loadModel(HOUSE_LOCATION);
-        OBJLoader.getObjects(s);
-        OBJLoader.getObjects(t);
-        bunnyDisplayList=OBJLoader.createList(s);
-        houseDisplayList=OBJLoader.createList(t);
+        Model s = OBJLoader.loadModel(MODEL_LOCATION);
+        t = OBJLoader.loadModel(HOUSE_LOCATION);
+        //OBJLoader.getObjects(s);
+        //OBJLoader.getObjects(t);
+        bunnyDisplayList = OBJLoader.createList(s);
+        houseDisplayList = OBJLoader.createList(t);
         setUpCamera();
         setUpLighting();
         //Transparenz aktivieren
-        glEnable (GL_BLEND);
-        glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_DEPTH_TEST);
         //glEnable(GL_SMOOTH);
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
         glEnable(GL_LIGHTING);
         glEnable(GL_COLOR_MATERIAL);
-        glColorMaterial(GL_FRONT,GL_SHININESS);
+        glColorMaterial(GL_FRONT, GL_SHININESS);
         //glEnable(GL_TEXTURE_2D);
-        while (!Display.isCloseRequested()) {
+        while (!Display.isCloseRequested())
+        {
             render();
             checkInput();
             Display.update();
@@ -104,40 +111,49 @@ public class ModelDemo {
         System.exit(0);
     }
 
-    private static void checkInput() {
+    private static void checkInput()
+    {
         camera.processMouse(1, 80, -80);
-        camera.processKeyboard(16, 1, 1, 1);
+        camera.processKeyboard(1600, 1, 1, 1);
         //glLight(GL_LIGHT0, GL_POSITION, BufferTools.asFlippedFloatBuffer(lightposition));
         //glLight(GL_LIGHT0, GL_COLOR, BufferTools.asFlippedFloatBuffer(new float[]{1.0f, 0.0f, 0.0f, 1.0f}));
         if (Mouse.isButtonDown(0))
-            Mouse.setGrabbed(true);
-        else if (Mouse.isButtonDown(1))
-            Mouse.setGrabbed(false);
-        if(Keyboard.isKeyDown(Keyboard.KEY_G))
         {
-            lightposition=new float[]{camera.x(), camera.y(), camera.z(), 1};
+            Mouse.setGrabbed(true);
+        }
+        else if (Mouse.isButtonDown(1))
+        {
+            Mouse.setGrabbed(false);
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_G))
+        {
+            lightposition = new float[]
+            {
+                camera.x(), camera.y(), camera.z(), 1
+            };
         }
     }
 
-    private static void cleanUp() {
+    private static void cleanUp()
+    {
         glDeleteLists(bunnyDisplayList, 1);
         glDeleteLists(houseDisplayList, 1);
         Display.destroy();
     }
 
-    private static void render() {
+    private static void render()
+    {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
         camera.applyTranslations();
-        glPolygonMode(GL_FRONT_AND_BACK , GL_LINES);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
         //glCallList(bunnyDisplayList);
-        //glCallList(houseDisplayList);
-        OBJLoader.processPartModel(t, camera.x(), camera.y(), 100f);
-        glColor3f(0.5f,0f,0f);
-        glRectf(0.0f,0.0f,1.1f,1.1f);
+        glCallList(houseDisplayList);
+        //OBJLoader.processPartModel(t, camera.x(), camera.y(), 1000f);
     }
 
-    private static void setUpCamera() {
+    private static void setUpCamera()
+    {
         camera = new EulerCamera.Builder()
                 .setAspectRatio((float) Display.getWidth() / Display.getHeight())
                 .setRotation(-1.12f, 0.16f, 0f)
@@ -147,30 +163,50 @@ public class ModelDemo {
         camera.applyOptimalStates();
         camera.applyPerspectiveMatrix();
     }
-    
-    private static void setUpDisplay() {
-        try {
+
+    private static void setUpDisplay()
+    {
+        try
+        {
             Display.setDisplayMode(new DisplayMode(1900, 1080));
             Display.setFullscreen(true);
             Display.setVSyncEnabled(true);
             Display.setTitle("Happy Easter!");
             Display.create();
-        } catch (LWJGLException e) {
+        }
+        catch (LWJGLException e)
+        {
             System.err.println("The display wasn't initialized correctly. :(");
             Display.destroy();
             System.exit(1);
         }
     }
-    private static void setUpLighting() {
+
+    private static void setUpLighting()
+    {
         glShadeModel(GL_SMOOTH);
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_LIGHTING);
         glEnable(GL_LIGHT0);
-        glLightModel(GL_LIGHT_MODEL_AMBIENT, OBJLoader.asFlippedFloatBuffer(new float[]{1f,1f, 1f, 1f}));
-        glLight(GL_LIGHT0, GL_POSITION, OBJLoader.asFlippedFloatBuffer(new float[]{1, 1, 1, 1}));
+        glLightModel(GL_LIGHT_MODEL_AMBIENT, OBJLoader.asFlippedFloatBuffer(new float[]
+                {
+                    1f, 1f, 1f, 1f
+                }));
+        glLight(GL_LIGHT0, GL_POSITION, OBJLoader.asFlippedFloatBuffer(new float[]
+                {
+                    1, 1, 1, 1
+                }));
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
         glEnable(GL_COLOR_MATERIAL);
         glColorMaterial(GL_FRONT, GL_SHININESS);
+
+        glEnable(GL_FOG);
+        glFogi(GL_FOG_MODE, GL_LINEAR);
+        glFogf(GL_FOG_START, 450f);
+        glFogf(GL_FOG_END, 490f);
+        glFog(GL_FOG_COLOR, OBJLoader.asFlippedFloatBuffer(fogcolor));
+        
+        glClearColor(0.7f,0.7f,0.7f,1f);
     }
 }

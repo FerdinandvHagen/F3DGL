@@ -16,12 +16,16 @@ import java.io.*;
 import java.nio.FloatBuffer;
 import org.lwjgl.opengl.Display;
 
+import java.util.List;
+import java.util.ArrayList;
+
 //import java.util.Date;
 
 import static org.lwjgl.opengl.GL11.*;
 //import static org.lwjgl.opengl.GL15.*;
 //import org.lwjgl.util.vector.Matrix4f;
 import org.newdawn.slick.opengl.TextureLoader;
+import org.newdawn.slick.opengl.Texture;
 
 public class OBJLoader
 {
@@ -94,7 +98,6 @@ public class OBJLoader
         int objcounterall = 0;
         glNewList(displayList, GL_COMPILE);
         {
-            //glColor3f(0.4f, 0.27f, 0.17f);
             for (ModelObject mobj : m.object)
             {
                 objcounterall++;
@@ -105,17 +108,17 @@ public class OBJLoader
                     //Zuerst die ganzen Daten auslesen für die Farbe
                     glMaterial(GL_FRONT, GL_AMBIENT, asFlippedFloatBuffer(new float[]
                             {
-                                mobj.Ka.x, mobj.Ka.y, mobj.Ka.z, 1f
+                                mobj.Ka.x, mobj.Ka.y, mobj.Ka.z, mobj.d
                             }));
                     glMaterial(GL_FRONT, GL_DIFFUSE, asFlippedFloatBuffer(new float[]
                             {
-                                mobj.Kd.x, mobj.Kd.y, mobj.Kd.z, 1f
+                                mobj.Kd.x, mobj.Kd.y, mobj.Kd.z, mobj.d
                             }));
                     if (mobj.Ks != null)
                     {
                         glMaterial(GL_FRONT, GL_SPECULAR, asFlippedFloatBuffer(new float[]
                                 {
-                                    mobj.Ks.x, mobj.Ks.y, mobj.Ks.z, 1f
+                                    mobj.Ks.x, mobj.Ks.y, mobj.Ks.z, mobj.d
                                 }));
                     }
                     glColor4f(mobj.Kd.x, mobj.Kd.y, mobj.Kd.z, mobj.d);
@@ -125,8 +128,14 @@ public class OBJLoader
                     {
                         glDisable(GL_TEXTURE_2D);
                         glEnable(GL_TEXTURE_2D);
+                        glColor4f(1f, 1f, 1f, 1f);
                         mobj.texture.bind();
                     }
+                    else
+                    {
+                        glColor4f(mobj.Kd.x, mobj.Kd.y, mobj.Kd.z, mobj.d);
+                    }
+
                     glBegin(GL_TRIANGLES);
                     for (Face face : mobj.faces)
                     {
@@ -175,6 +184,10 @@ public class OBJLoader
         glBegin(GL_TRIANGLES);
         for (ModelObject mobj : m.object)
         {
+            if (!mobj.inbounds(x, y, far))
+            {
+                break;
+            }
             glDisable(GL_TEXTURE_2D);
             //Zuerst die ganzen Daten auslesen für die Farbe
             glMaterial(GL_FRONT, GL_AMBIENT, asFlippedFloatBuffer(new float[]
@@ -204,28 +217,9 @@ public class OBJLoader
             glBegin(GL_TRIANGLES);
             for (Face face : mobj.faces)
             {
-                Vector2f downleft = new Vector2f(x, y);
-                Vector2f downright = new Vector2f(x + far, y);
-                Vector2f upleft = new Vector2f(x, y + far);
-                Vector2f upright = new Vector2f(x + far, y + far);
-
                 Vector3f v1 = m.vertices.get((int) face.vertex.x - 1);
                 Vector3f v2 = m.vertices.get((int) face.vertex.y - 1);
                 Vector3f v3 = m.vertices.get((int) face.vertex.z - 1);
-
-                if (!checkHit(x, y, far, v1.x, v1.y))
-                {
-                    break;
-                }
-                if (!checkHit(x, y, far, v2.x, v2.y))
-                {
-                    break;
-                }
-                if (!checkHit(x, y, far, v3.x, v3.y))
-                {
-                    break;
-                }
-                
                 //1
                 {
                     if (mobj.texture != null)
@@ -260,31 +254,12 @@ public class OBJLoader
         glEnd();
     }
 
-    private static boolean checkHit(float x, float y, float far, float vx, float vy)
-    {
-        if (vx < x)
-        {
-            return false;
-        }
-        if (vx > (x + far))
-        {
-            return false;
-        }
-        if (vy < y)
-        {
-            return false;
-        }
-        if (vy > (y + far))
-        {
-            return false;
-        }
-        return true;
-    }
-
     private static Model loadOBJ(String name, String mtllib) throws FileNotFoundException, IOException
     {
         //Wir holen uns die Anfangsuhrzeit, um Ladezeiten berechnen zu können
         long millis = System.currentTimeMillis();
+        //Eine Liste alles bisher behandelten Texturen; verhindert das doppelte Laden
+        List<TextureModel> texturelist = new ArrayList<>();
         //Es kommt unser erste Nachricht, dass wir mit unserer Arbeit beginnen
         System.out.println("Reading " + name);
         //Es wird die mtl und die obj Datein ersteinmal erzeugt
@@ -362,6 +337,27 @@ public class OBJLoader
             }
             else if (line.startsWith("f "))
             {
+                if (line.split(" ").length != 4)
+                {
+                    //f's sind nicht als Dreiecke vorliegend, daher muss noch eine veränderte drüber
+                    Vector3f vertexIndices = new Vector3f(Float.valueOf(line.split(" ")[1].split("/")[0]),
+                            Float.valueOf(line.split(" ")[3].split("/")[0]),
+                            Float.valueOf(line.split(" ")[4].split("/")[0]));
+                    Vector3f normalIndices = new Vector3f(Float.valueOf(line.split(" ")[1].split("/")[2]),
+                            Float.valueOf(line.split(" ")[3].split("/")[2]),
+                            Float.valueOf(line.split(" ")[4].split("/")[2]));
+                    Vector3f textureIndices = null;
+                    if (!line.split(" ")[1].split("/")[1].equals(""))
+                    {
+                        //face contains Texture information
+                        textureIndices = new Vector3f(Float.valueOf(line.split(" ")[1].split("/")[1]),
+                                Float.valueOf(line.split(" ")[3].split("/")[1]),
+                                Float.valueOf(line.split(" ")[4].split("/")[1]));
+                    }
+                    currentobj.faces.add(new Face(vertexIndices, normalIndices, textureIndices));
+                }
+
+                //Kein Problem, jetzt die ersten drei, entweder sind die sowieso im Dreieck oder ich habe ja schon welche extrahiert
                 Vector3f vertexIndices = new Vector3f(Float.valueOf(line.split(" ")[1].split("/")[0]),
                         Float.valueOf(line.split(" ")[2].split("/")[0]),
                         Float.valueOf(line.split(" ")[3].split("/")[0]));
@@ -376,6 +372,7 @@ public class OBJLoader
                             Float.valueOf(line.split(" ")[2].split("/")[1]),
                             Float.valueOf(line.split(" ")[3].split("/")[1]));
                 }
+
                 currentobj.faces.add(new Face(vertexIndices, normalIndices, textureIndices));
                 currentobj.change = true;
             }
@@ -399,22 +396,28 @@ public class OBJLoader
                     System.err.println("Did not find mtl-obj");
                     System.err.println("Searched in " + name + ".mtl");
                 }
-                try
+
+                if (s.path == null)
                 {
-                    if (s.path == null)
-                    {
-                        //keine Textur
-                        currentobj.addmtlinfo(s.name, null, s.Ka, s.Kd, s.Ks, s.d, s.Ns, s.Ni);
-                    }
-                    else
-                    {
-                        //Textur vorhanden
-                        currentobj.addmtlinfo(s.name, TextureLoader.getTexture(s.path.split("\\.")[1].toUpperCase(), new FileInputStream(new File(s.path))), s.Ka, s.Kd, s.Ks, s.d, s.Ns, s.Ni);
-                    }
+                    //keine Textur
+                    currentobj.addmtlinfo(s.name, null, s.Ka, s.Kd, s.Ks, s.d, s.Ns, s.Ni);
                 }
-                catch (IOException e)
+                else
                 {
-                    System.err.println("Texture " + s.path + " not found");
+                    //Textur vorhanden
+                    Texture tex = null;
+                    for (TextureModel texmodel : texturelist)
+                    {
+                        if (texmodel.path.equals(s.path))
+                        {
+                            tex = texmodel.texture;
+                        }
+                    }
+                    if (tex == null)
+                    {
+                        texturelist.add(new TextureModel(s.path));
+                    }
+                    currentobj.addmtlinfo(s.name, tex, s.Ka, s.Kd, s.Ks, s.d, s.Ns, s.Ni);
                 }
             }
             else if (line.startsWith("o "))
@@ -435,6 +438,15 @@ public class OBJLoader
         System.out.println(name + " has " + countobject + " OBJ-Objects (For more information: String[] OBJLoader.getObjects(Model m, [boolean display])");
         System.out.println(name + " has " + countervert + " Vertices");
         System.out.println("OBJ succesfully analyzed in " + (System.currentTimeMillis() - millis) + "ms");
+
+        for (TextureModel m : texturelist)
+        {
+            m.print();
+        }
+
+        //Noch die Mittelpunkte berechnen
+        OBJLoader.calculatemiddle(obj);
+
         return obj;
     }
 
@@ -508,7 +520,7 @@ public class OBJLoader
             {
                 Ni = Float.valueOf(line.split(" ")[1]);
             }
-            else if (line.startsWith("map_"))
+            else if (line.startsWith("map_Kd"))
             {
                 path = line.split(" ")[1];
                 if (line.split(" ").length != 2)
@@ -540,5 +552,62 @@ public class OBJLoader
         System.err.println("Failed to create: " + name);
         Display.destroy();
         System.exit(1);
+    }
+
+    public static void calculatemiddle(Model m)
+    {
+        float minx, maxx, miny, maxy, minz, maxz;
+        boolean first;
+        for (ModelObject t : m.object)
+        {
+            first = true;
+            minx = 0f;
+            maxx = 0f;
+            miny = 0f;
+            maxy = 0f;
+            minz = 0f;
+            maxz = 0f;
+
+            for (Face face : t.faces)
+            {
+                //1
+                Vector3f v1 = m.vertices.get((int) face.vertex.x - 1);
+                //2
+                Vector3f v2 = m.vertices.get((int) face.vertex.y - 1);
+                //3 alle drei Punkte des Dreiecks behandeln
+                Vector3f v3 = m.vertices.get((int) face.vertex.z - 1);
+
+                if (first)  //Wenns der Erste ist, werden die auf einen definierten Startwert gelegt. Nicht 0!! Sonst kommt Schmarrn raus
+                {
+                    first = false;
+                    minx = v1.x;
+                    maxx = v1.x;
+                    miny = v1.y;
+                    maxy = v1.y;
+                    minz = v1.z;
+                    maxz = v1.z;
+                }
+
+                //Berechnung von minimalem aus v1, v2, v3 und min (lokal)
+                minx = Math.min(v1.x, Math.min(v2.x, Math.min(v3.x, minx)));
+                miny = Math.min(v1.y, Math.min(v2.y, Math.min(v3.y, miny)));
+                minz = Math.min(v1.z, Math.min(v2.z, Math.min(v3.z, minz)));
+
+                //Berechnung von maximalem aus v1, v2, v3 und min (lokal)
+                maxx = Math.max(v1.x, Math.max(v2.x, Math.max(v3.x, maxx)));
+                maxy = Math.max(v1.y, Math.max(v2.y, Math.max(v3.y, maxy)));
+                maxz = Math.max(v1.z, Math.max(v2.z, Math.max(v3.z, maxz)));
+            }
+
+            //Jetzt in das aktuelle ModelObject laden
+            t.middlepointx = (minx + maxx) / 2f;
+            t.middlepointy = (miny + maxy) / 2f;
+            t.middlepointz = (minz + maxz) / 2f;
+            t.expx = (maxx - minx) / 2f;
+            t.expy = (maxy - miny) / 2f;
+            t.expz = (maxz - minz) / 2f;
+
+            System.out.println(t.middlepointx + " " + t.middlepointy + " " + t.expx + " " +t.expy);
+        }
     }
 }
