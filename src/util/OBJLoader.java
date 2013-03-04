@@ -186,7 +186,7 @@ public class OBJLoader
         {
             if (!mobj.inbounds(x, y, far))
             {
-                break;
+                continue;
             }
             glDisable(GL_TEXTURE_2D);
             //Zuerst die ganzen Daten auslesen für die Farbe
@@ -210,7 +210,6 @@ public class OBJLoader
             //und nun wird ganz normal gelesen.
             if (mobj.texture != null)
             {
-                glDisable(GL_TEXTURE_2D);
                 glEnable(GL_TEXTURE_2D);
                 glColor4f(1f, 1f, 1f, 1f);
                 mobj.texture.bind();
@@ -341,7 +340,7 @@ public class OBJLoader
             }
             else if (line.startsWith("f "))
             {
-                if (line.split(" ").length != 4)
+                if (line.split(" ").length == 5)
                 {
                     //f's sind nicht als Dreiecke vorliegend, daher muss noch eine veränderte drüber
                     Vector3f vertexIndices = new Vector3f(Float.valueOf(line.split(" ")[1].split("/")[0]),
@@ -361,24 +360,27 @@ public class OBJLoader
                     currentobj.faces.add(new Face(vertexIndices, normalIndices, textureIndices));
                 }
 
-                //Kein Problem, jetzt die ersten drei, entweder sind die sowieso im Dreieck oder ich habe ja schon welche extrahiert
-                Vector3f vertexIndices = new Vector3f(Float.valueOf(line.split(" ")[1].split("/")[0]),
-                        Float.valueOf(line.split(" ")[2].split("/")[0]),
-                        Float.valueOf(line.split(" ")[3].split("/")[0]));
-                Vector3f normalIndices = new Vector3f(Float.valueOf(line.split(" ")[1].split("/")[2]),
-                        Float.valueOf(line.split(" ")[2].split("/")[2]),
-                        Float.valueOf(line.split(" ")[3].split("/")[2]));
-                Vector3f textureIndices = null;
-                if (!line.split(" ")[1].split("/")[1].equals(""))
+                if (line.split(" ").length >= 4)
                 {
-                    //face contains Texture information
-                    textureIndices = new Vector3f(Float.valueOf(line.split(" ")[1].split("/")[1]),
-                            Float.valueOf(line.split(" ")[2].split("/")[1]),
-                            Float.valueOf(line.split(" ")[3].split("/")[1]));
-                }
+                    //Kein Problem, jetzt die ersten drei, entweder sind die sowieso im Dreieck oder ich habe ja schon welche extrahiert
+                    Vector3f vertexIndices = new Vector3f(Float.valueOf(line.split(" ")[1].split("/")[0]),
+                            Float.valueOf(line.split(" ")[2].split("/")[0]),
+                            Float.valueOf(line.split(" ")[3].split("/")[0]));
+                    Vector3f normalIndices = new Vector3f(Float.valueOf(line.split(" ")[1].split("/")[2]),
+                            Float.valueOf(line.split(" ")[2].split("/")[2]),
+                            Float.valueOf(line.split(" ")[3].split("/")[2]));
+                    Vector3f textureIndices = null;
+                    if (!line.split(" ")[1].split("/")[1].equals(""))
+                    {
+                        //face contains Texture information
+                        textureIndices = new Vector3f(Float.valueOf(line.split(" ")[1].split("/")[1]),
+                                Float.valueOf(line.split(" ")[2].split("/")[1]),
+                                Float.valueOf(line.split(" ")[3].split("/")[1]));
+                    }
 
-                currentobj.faces.add(new Face(vertexIndices, normalIndices, textureIndices));
-                currentobj.change = true;
+                    currentobj.faces.add(new Face(vertexIndices, normalIndices, textureIndices));
+                    currentobj.change = true;
+                }
             }
             else if (line.startsWith("usemtl "))
             {
@@ -526,8 +528,9 @@ public class OBJLoader
             }
             else if (line.startsWith("map_Kd"))
             {
-                path = line.split(" ")[1];
-                if (line.split(" ").length != 2)
+                path = line.split(" ")[line.split(" ").length-1];
+                //Patch für den Bugatti:
+                if (line.split(" ").length == 3)
                 {
                     path = line.split(" ")[1] + " " + line.split(" ")[2];
                 }

@@ -47,6 +47,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
 import org.newdawn.slick.SlickException;
@@ -74,7 +75,7 @@ public class ModelDemo
     };
     private static Texture audi;
     public static final String MODEL_LOCATION = "Bugatti2";
-    public static final String HOUSE_LOCATION = "NEUESTES_DANCOUVER2";
+    public static final String HOUSE_LOCATION = "NEUESTES_DANCOUVER";
     private static Model t;
 
     public static void main(String[] args)
@@ -86,7 +87,7 @@ public class ModelDemo
         //OBJLoader.getObjects(s);
         //OBJLoader.getObjects(t);
         bunnyDisplayList = OBJLoader.createList(s);
-        //houseDisplayList = OBJLoader.createList(t);
+        houseDisplayList = OBJLoader.createList(t);
         setUpCamera();
         setUpLighting();
         //Transparenz aktivieren
@@ -117,13 +118,11 @@ public class ModelDemo
         camera.processKeyboard(1600, 1, 1, 1);
         //glLight(GL_LIGHT0, GL_POSITION, BufferTools.asFlippedFloatBuffer(lightposition));
         //glLight(GL_LIGHT0, GL_COLOR, BufferTools.asFlippedFloatBuffer(new float[]{1.0f, 0.0f, 0.0f, 1.0f}));
-        if (Mouse.isButtonDown(0))
-        {
-            Mouse.setGrabbed(true);
-        }
-        else if (Mouse.isButtonDown(1))
+        if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
         {
             Mouse.setGrabbed(false);
+            cleanUp();
+            System.exit(0);
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_G))
         {
@@ -147,9 +146,9 @@ public class ModelDemo
         glLoadIdentity();
         camera.applyTranslations();
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
-        //glCallList(bunnyDisplayList);
-        //glCallList(houseDisplayList);
-        OBJLoader.processPartModel(t, camera.x(), camera.y(), 1000f);
+        glCallList(bunnyDisplayList);
+        glCallList(houseDisplayList);
+        //OBJLoader.processPartModel(t, camera.x(), camera.y(), 1000f);
     }
 
     private static void setUpCamera()
@@ -168,7 +167,7 @@ public class ModelDemo
     {
         try
         {
-            Display.setDisplayMode(new DisplayMode(1900, 1080));
+            //Display.setDisplayMode(new DisplayMode(1900, 1080));
             Display.setFullscreen(true);
             Display.setVSyncEnabled(true);
             Display.setTitle("Happy Easter!");
@@ -180,6 +179,7 @@ public class ModelDemo
             Display.destroy();
             System.exit(1);
         }
+        Mouse.setGrabbed(true);
     }
 
     private static void setUpLighting()
@@ -203,7 +203,7 @@ public class ModelDemo
 
         glEnable(GL_FOG);
         glFogi(GL_FOG_MODE, GL_LINEAR);
-        glFogf(GL_FOG_START, 450f);
+        glFogf(GL_FOG_START, 470f);
         glFogf(GL_FOG_END, 490f);
         glFog(GL_FOG_COLOR, OBJLoader.asFlippedFloatBuffer(fogcolor));
         
