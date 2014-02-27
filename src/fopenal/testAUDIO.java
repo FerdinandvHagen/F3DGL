@@ -26,15 +26,15 @@ public class testAUDIO
         int i=20;
         while(i--!=0)
         {
+            test.playAUDIO();
             try
             {
-                Thread.sleep(1000);
+                Thread.sleep(120000);
             }
             catch (InterruptedException e)
             {
                 
             }
-            test.playAUDIO();
         }
         test.stopAUDIO();
         test.cleanUp();

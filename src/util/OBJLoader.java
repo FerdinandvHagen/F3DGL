@@ -29,7 +29,7 @@ import org.newdawn.slick.opengl.Texture;
 
 public class OBJLoader
 {
-
+   
     public static Model loadModel(String name, String mtllib)
     {
         Model m = null;
@@ -528,7 +528,7 @@ public class OBJLoader
             }
             else if (line.startsWith("map_Kd"))
             {
-                path = line.split(" ")[line.split(" ").length-1];
+                path = line.split(" ")[line.split(" ").length - 1];
                 //Patch für den Bugatti:
                 if (line.split(" ").length == 3)
                 {
@@ -616,5 +616,79 @@ public class OBJLoader
 
             //System.out.println(t.middlepointx + " " + t.middlepointy + " " + t.expx + " " + t.expy);
         }
+    }
+    
+    public static void printModel(Model m)
+    {
+        glBegin(GL_TRIANGLES);
+        for (ModelObject mobj : m.object)
+        {
+            glDisable(GL_TEXTURE_2D);
+            //Zuerst die ganzen Daten auslesen für die Farbe
+            glMaterial(GL_FRONT, GL_AMBIENT, asFlippedFloatBuffer(new float[]
+                    {
+                        mobj.Ka.x, mobj.Ka.y, mobj.Ka.z, mobj.d
+                    }));
+            glMaterial(GL_FRONT, GL_DIFFUSE, asFlippedFloatBuffer(new float[]
+                    {
+                        mobj.Kd.x, mobj.Kd.y, mobj.Kd.z, mobj.d
+                    }));
+            if (mobj.Ks != null)
+            {
+                glMaterial(GL_FRONT, GL_SPECULAR, asFlippedFloatBuffer(new float[]
+                        {
+                            mobj.Ks.x, mobj.Ks.y, mobj.Ks.z, mobj.d
+                        }));
+            }
+            glColor4f(mobj.Kd.x, mobj.Kd.y, mobj.Kd.z, mobj.d);
+            glMaterialf(GL_FRONT, GL_SHININESS, mobj.Ns);
+            //und nun wird ganz normal gelesen.
+            if (mobj.texture != null)
+            {
+                glEnable(GL_TEXTURE_2D);
+                glColor4f(1f, 1f, 1f, 1f);
+                mobj.texture.bind();
+            }
+            else
+            {
+                glColor4f(mobj.Kd.x, mobj.Kd.y, mobj.Kd.z, mobj.d);
+            }
+
+            glBegin(GL_TRIANGLES);
+            for (Face face : mobj.faces)
+            {
+                //1
+                if (mobj.texture != null)
+                {
+                    Vector2f t1 = m.texvertices.get((int) face.textvert.x - 1);
+                    glTexCoord2f(t1.x, 1f - t1.y);
+                }
+                Vector3f n1 = m.normals.get((int) face.normal.x - 1);
+                glNormal3f(n1.x, n1.y, n1.z);
+                Vector3f v1 = m.vertices.get((int) face.vertex.x - 1);
+                glVertex3f(v1.x, v1.y, v1.z);
+                //2
+                if (mobj.texture != null)
+                {
+                    Vector2f t2 = m.texvertices.get((int) face.textvert.y - 1);
+                    glTexCoord2f(t2.x, 1f - t2.y);
+                }
+                Vector3f n2 = m.normals.get((int) face.normal.y - 1);
+                glNormal3f(n2.x, n2.y, n2.z);
+                Vector3f v2 = m.vertices.get((int) face.vertex.y - 1);
+                glVertex3f(v2.x, v2.y, v2.z);
+                //3
+                if (mobj.texture != null)
+                {
+                    Vector2f t3 = m.texvertices.get((int) face.textvert.z - 1);
+                    glTexCoord2f(t3.x, 1f - t3.y);
+                }
+                Vector3f n3 = m.normals.get((int) face.normal.z - 1);
+                glNormal3f(n3.x, n3.y, n3.z);
+                Vector3f v3 = m.vertices.get((int) face.vertex.z - 1);
+                glVertex3f(v3.x, v3.y, v3.z);
+            }
+        }
+        glEnd();
     }
 }

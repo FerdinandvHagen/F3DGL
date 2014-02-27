@@ -29,6 +29,8 @@
 package fopengl;
 
 //import util.BufferTools;
+import fopenal.AUDIO;
+import fopenal.testAUDIO;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -77,6 +79,8 @@ public class ModelDemo
     public static final String MODEL_LOCATION = "Bugatti2";
     public static final String HOUSE_LOCATION = "NEUESTES_DANCOUVER";
     private static Model t;
+    private static AUDIO test;
+    private static Animation anim;
 
     public static void main(String[] args)
     {
@@ -84,6 +88,7 @@ public class ModelDemo
         setUpDisplay();
         Model s = OBJLoader.loadModel(MODEL_LOCATION);
         t = OBJLoader.loadModel(HOUSE_LOCATION);
+        //anim = new Animation("untitled_",99,"000000");
         //OBJLoader.getObjects(s);
         //OBJLoader.getObjects(t);
         bunnyDisplayList = OBJLoader.createList(s);
@@ -95,18 +100,27 @@ public class ModelDemo
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_DEPTH_TEST);
         //glEnable(GL_SMOOTH);
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
+        //glEnable(GL_CULL_FACE);
+        //glCullFace(GL_FRONT_AND_BACK);
         glEnable(GL_LIGHTING);
         glEnable(GL_COLOR_MATERIAL);
-        glColorMaterial(GL_FRONT, GL_SHININESS);
+        //glColorMaterial(GL_FRONT, GL_SHININESS);
         //glEnable(GL_TEXTURE_2D);
+
+        //Audio Test
+        testAUDIO.INIT.enableAUDIO();
+        AUDIO.setListener(AUDIO.POSITION, camera.x(), camera.y(), camera.z());
+        test = new AUDIO("thump.wav");
+        test.setSource(AUDIO.POSITION, 100f, 100f, 0f);
+        test.playAUDIO();
+
         while (!Display.isCloseRequested())
         {
             render();
+            //anim.animate();
             checkInput();
             Display.update();
-            Display.sync(60);
+            Display.sync(25);
         }
         cleanUp();
         System.exit(0);
@@ -130,6 +144,7 @@ public class ModelDemo
             {
                 camera.x(), camera.y(), camera.z(), 1
             };
+            test.setSource(AUDIO.POSITION, camera.x(), camera.y(), camera.z());
         }
     }
 
@@ -137,6 +152,9 @@ public class ModelDemo
     {
         glDeleteLists(bunnyDisplayList, 1);
         glDeleteLists(houseDisplayList, 1);
+        test.stopAUDIO();
+        test.cleanUp();
+        testAUDIO.INIT.disableAUDIO();
         Display.destroy();
     }
 
@@ -145,7 +163,7 @@ public class ModelDemo
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
         camera.applyTranslations();
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
         glCallList(bunnyDisplayList);
         glCallList(houseDisplayList);
         //OBJLoader.processPartModel(t, camera.x(), camera.y(), 1000f);
@@ -167,7 +185,6 @@ public class ModelDemo
     {
         try
         {
-            //Display.setDisplayMode(new DisplayMode(1900, 1080));
             Display.setFullscreen(true);
             Display.setVSyncEnabled(true);
             Display.setTitle("Happy Easter!");
@@ -199,14 +216,14 @@ public class ModelDemo
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
         glEnable(GL_COLOR_MATERIAL);
-        glColorMaterial(GL_FRONT, GL_SHININESS);
+        //glColorMaterial(GL_FRONT, GL_SHININESS);
 
         glEnable(GL_FOG);
         glFogi(GL_FOG_MODE, GL_LINEAR);
         glFogf(GL_FOG_START, 470f);
         glFogf(GL_FOG_END, 490f);
         glFog(GL_FOG_COLOR, OBJLoader.asFlippedFloatBuffer(fogcolor));
-        
-        glClearColor(0.7f,0.7f,0.7f,1f);
+
+        glClearColor(0.7f, 0.7f, 0.7f, 1f);
     }
 }

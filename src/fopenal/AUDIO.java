@@ -41,7 +41,7 @@ public class AUDIO
     {
         alListener3f(pname, x,y,z);
     }
-    public static void setLIstener(int pname, int x, int y, int z)
+    public static void setListener(int pname, int x, int y, int z)
     {
         alListener3i(pname, x, y, z);
     }
