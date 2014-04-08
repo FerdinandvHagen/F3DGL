@@ -620,7 +620,7 @@ public class OBJLoader
     
     public static void printModel(Model m)
     {
-        glBegin(GL_TRIANGLES);
+        //glBegin(GL_TRIANGLES);
         for (ModelObject mobj : m.object)
         {
             glDisable(GL_TEXTURE_2D);
@@ -688,7 +688,7 @@ public class OBJLoader
                 Vector3f v3 = m.vertices.get((int) face.vertex.z - 1);
                 glVertex3f(v3.x, v3.y, v3.z);
             }
+            glEnd();
         }
-        glEnd();
     }
 }
